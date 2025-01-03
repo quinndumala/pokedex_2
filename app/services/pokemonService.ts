@@ -1,6 +1,7 @@
 export async function getPokemonData({ pageParam }: { pageParam: number }) {
+  const limit = 21;
   const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=21&offset=${pageParam}`
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${pageParam}`
   );
 
   if (!res.ok) {
