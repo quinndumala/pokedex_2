@@ -8,7 +8,7 @@ const Loading = ({ style, size }: LoadingProps) => {
   const loadingSize = size || "lg";
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center py-8">
       <span
         className={`loading loading-${loadingStyle} loading-${loadingSize}`}
       ></span>
