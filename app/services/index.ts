@@ -1,3 +1,3 @@
-import { getPokemonData } from "./pokemonService";
+import { getPokemonData, getPokemonDetails } from "./pokemonService";
 
-export { getPokemonData };
+export { getPokemonData, getPokemonDetails };
