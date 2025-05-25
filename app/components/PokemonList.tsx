@@ -5,6 +5,7 @@ import { InfiniteData } from "@tanstack/react-query";
 interface PokemonListItem {
   imageUrl: string;
   name: string;
+  pokeUrl: string;
 }
 
 interface PokemonListProps {

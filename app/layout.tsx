@@ -4,6 +4,7 @@ import ReactQueryProvider from "./contexts/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import Dock from "./components/Dock";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <Navbar />
           {children}
+          <Dock />
           <ReactQueryDevtools />
         </ReactQueryProvider>
       </body>
