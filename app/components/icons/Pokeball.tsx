@@ -1,18 +1,23 @@
 const PokeballIcon = () => {
   return (
     <svg
+      className="size-[1.5em]"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="square"
-      stroke-linejoin="miter"
     >
-      <circle cx="12" cy="12" r="9.5" />
-      <circle cx="12" cy="12" r="2.5" />
-      <line x1="3" y1="12" x2="9" y2="12" />
-      <line x1="15" y1="12" x2="21" y2="12" />
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinejoin="miter"
+        strokeLinecap="square"
+        strokeWidth="2"
+        transform="rotate(-30 12 12)"
+      >
+        <circle cx="12" cy="12" r="10.5" strokeMiterlimit="10" />
+        <line x1="2" y1="12" x2="8.5" y2="12" strokeMiterlimit="10" />
+        <line x1="15.5" y1="12" x2="22" y2="12" strokeMiterlimit="10" />
+        <circle cx="12" cy="12" r="3" strokeMiterlimit="10" />
+      </g>
     </svg>
   );
 };

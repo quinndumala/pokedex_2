@@ -10,7 +10,7 @@ interface DockItemProps {
 
 function DockMenuItem({ item }: DockItemProps) {
   const { icon, label, isActive } = item;
-  const baseClasses = "mx-4 flex flex-col items-center";
+  const baseClasses = "flex flex-col items-center justify-center w-16"; // fixed size
   const activeClass = isActive ? "dock-active" : "";
 
   return (
