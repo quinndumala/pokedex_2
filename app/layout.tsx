@@ -25,7 +25,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Dock />
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </ReactQueryProvider>
       </body>
     </html>

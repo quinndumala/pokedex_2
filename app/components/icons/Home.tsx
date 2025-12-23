@@ -15,7 +15,7 @@ const HomeIcon = () => {
             points="1 11 12 2 23 11"
             fill="none"
             stroke="currentColor"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             strokeWidth="2"
           ></polyline>
           <path
@@ -23,7 +23,7 @@ const HomeIcon = () => {
             fill="none"
             stroke="currentColor"
             strokeLinecap="square"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             strokeWidth="2"
           ></path>
           <line
@@ -34,7 +34,7 @@ const HomeIcon = () => {
             fill="none"
             stroke="currentColor"
             strokeLinecap="square"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             strokeWidth="2"
           ></line>
         </g>

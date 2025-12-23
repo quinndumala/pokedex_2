@@ -25,8 +25,8 @@ export async function getPokemonData({ pageParam }: { pageParam: number }) {
   return filtered;
 }
 
-export async function getPokemonDetails(url: string) {
-  const res = await fetch(url);
+export async function getPokemonDetails(pokemon: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon${pokemon}`);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.status}`);

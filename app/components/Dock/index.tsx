@@ -1,8 +1,8 @@
-import DockMenuItem, { DockItem } from "./DockItem";
-import menuItems from "../Menu/items";
+import DockMenuItem from "./DockItem";
+import menuItems, { MenuItem } from "../Menu/items";
 
 interface DockProps {
-  items?: DockItem[];
+  items?: MenuItem[];
 }
 
 function Dock({ items = menuItems }: DockProps) {

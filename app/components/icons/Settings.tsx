@@ -13,7 +13,7 @@ const SettingsIcon = () => {
           fill="none"
           stroke="currentColor"
           strokeLinecap="square"
-          stroke-miterlimit="10"
+          strokeMiterlimit="10"
           strokeWidth="2"
         ></circle>
         <path
@@ -21,7 +21,7 @@ const SettingsIcon = () => {
           fill="none"
           stroke="currentColor"
           strokeLinecap="square"
-          stroke-miterlimit="10"
+          strokeMiterlimit="10"
           strokeWidth="2"
         ></path>
       </g>

@@ -1,20 +1,30 @@
 import { HomeIcon, SearchIcon, SettingsIcon } from "../icons";
 
-const menuItems = [
+export interface MenuItem {
+  label: string;
+  icon: React.ReactNode;
+  isActive: boolean;
+  url: string;
+}
+
+const menuItems: MenuItem[] = [
   {
     label: "Home",
     icon: <HomeIcon />,
     isActive: false,
+    url: "/",
   },
   {
     label: "Search",
     icon: <SearchIcon />,
     isActive: false,
+    url: "/search",
   },
   {
     label: "Settings",
     icon: <SettingsIcon />,
     isActive: false,
+    url: "/settings",
   },
 ];
 
