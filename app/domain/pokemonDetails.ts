@@ -1,4 +1,5 @@
-interface PokemonDetails {
+export interface PokemonDetails {
+  id: number;
   name: string;
   height: number;
   weight: number;
@@ -6,6 +7,7 @@ interface PokemonDetails {
   abilities: PokemonAbility[];
   cry: string;
   stats: PokemonStats[];
+  imageUrl?: string;
 }
 
 interface PokemonType {
@@ -25,7 +27,7 @@ interface PokemonAbility {
   };
 }
 
-interface PokemonCry {
+export interface PokemonCry {
   latest: string;
   legacy: string;
 }

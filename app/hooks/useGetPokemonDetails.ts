@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { getPokemonDetails } from "../services";
+import { PokemonDetails } from "../domain/pokemonDetails";
 
 const useGetPokemonDetails = (pokemon: string) => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<PokemonDetails | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!pokemon) return;
 
     const fetchPokemonDetails = async () => {
       setLoading(true);
+      setError(null);
       try {
         const pokeData = await getPokemonDetails(pokemon);
         setData(pokeData);
