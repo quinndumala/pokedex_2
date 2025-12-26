@@ -3,14 +3,12 @@
 import Image from "next/image";
 import { capitalizeFirstLetter } from "@/app/util";
 import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 function DetailsPage() {
-  const pathName = usePathname();
-  const { data, loading, error } = useGetPokemonDetails(pathName);
+  const { pokemon } = useParams<{ pokemon: string }>();
+  const { data, loading, error } = useGetPokemonDetails(pokemon);
   const displayName = capitalizeFirstLetter(data?.name ?? "");
-
-  console.log("Pathname:", pathName);
 
   console.log("Pokemon Details Data:", data);
 
