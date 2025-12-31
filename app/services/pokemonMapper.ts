@@ -1,16 +1,17 @@
 import { PokemonDetails } from "../domain/pokemonDetails";
 import { PokemonDto } from "./pokemon.dto";
 
-export function mapPokemonDetails(data: PokemonDto): PokemonDetails {
+export function mapPokemonDetails(pokemonData: PokemonDto): PokemonDetails {
   return {
-    id: data.id,
-    name: data.name,
-    height: data.height,
-    weight: data.weight,
-    types: data.types,
-    abilities: data.abilities,
-    cry: data.cries.latest,
-    stats: data.stats,
-    imageUrl: data.imageUrl,
+    id: pokemonData.id,
+    name: pokemonData.name,
+    height: pokemonData.height,
+    weight: pokemonData.weight,
+    types: pokemonData.types,
+    abilities: pokemonData.abilities,
+    cry: pokemonData.cries.latest,
+    stats: pokemonData.stats,
+    imageUrl: pokemonData.imageUrl,
+    flavorText: pokemonData.flavorText,
   };
 }

@@ -4,7 +4,7 @@ import { PokemonDetails } from "../domain/pokemonDetails";
 
 const useGetPokemonDetails = (pokemon: string) => {
   const [data, setData] = useState<PokemonDetails | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

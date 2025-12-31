@@ -1,3 +1,5 @@
+import { PokeAPI } from "pokeapi-types";
+
 export interface PokemonDetails {
   id: number;
   name: string;
@@ -8,6 +10,7 @@ export interface PokemonDetails {
   cry: string;
   stats: PokemonStats[];
   imageUrl?: string;
+  flavorText: PokeAPI.FlavorText;
 }
 
 interface PokemonType {

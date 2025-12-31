@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import ReactQueryProvider from "./contexts/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import Navbar from "./components/Navbar";
 import Dock from "./components/Dock";
 
