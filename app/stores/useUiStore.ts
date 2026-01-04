@@ -4,15 +4,10 @@ import { MenuKey } from "../components/Menu/items";
 
 type PokemonUiState = {
   activeMenuItem: MenuKey;
-
-  // actions
   setMenuItem: (menuItem: MenuKey) => void;
-
-  // optional: future-friendly
   isMenuItem: (menuItem: MenuKey) => boolean;
 };
 
-// Only persist serializable state
 type PokemonUiPersistedState = Pick<PokemonUiState, "activeMenuItem">;
 
 const DEFAULT_MENU_KEY: MenuKey = "home";
