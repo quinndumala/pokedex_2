@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Menu from "./Menu";
+import menuItems from "../Menu/items";
+import NavbarItem from "./NavbarItem";
 
 const PokeballIcon = () => {
   return (
@@ -23,7 +24,11 @@ const Navbar = () => {
         </button>
       </div>
       <div className="hidden flex-none justify-end lg:flex">
-        <Menu />
+        <ul className="menu menu-vertical rounded-box lg:menu-horizontal">
+          {menuItems.map((item, index) => (
+            <NavbarItem key={index} item={item} />
+          ))}
+        </ul>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import DockMenuItem from "./DockItem";
+import DockItem from "./DockItem";
 import menuItems, { MenuItem } from "../Menu/items";
 
 interface DockProps {
@@ -19,7 +19,7 @@ function Dock({ items = menuItems }: DockProps) {
           >
             <div className="mx-auto flex w-full max-w-md justify-between px-5 py-4 md:justify-center md:px-0">
               {items.map((item, index) => (
-                <DockMenuItem key={index} item={item} />
+                <DockItem key={index} item={item} />
               ))}
             </div>
           </div>

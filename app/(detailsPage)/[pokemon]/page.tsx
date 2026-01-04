@@ -13,6 +13,12 @@ function DetailsPage() {
 
   console.log("Pokemon Details Data:", data);
 
+  const errorState = () => (
+    <div className="mx-14 flex h-screen flex-col items-center justify-center">
+      <h1 className="mb-4 text-3xl font-bold">Not Found</h1>
+    </div>
+  );
+
   const loadingState = () => (
     <>
       <figure>
@@ -44,7 +50,7 @@ function DetailsPage() {
 
   return (
     <div className="mx-14 flex h-screen flex-col items-center justify-center">
-      {loading === true ? loadingState() : pageContent()}
+      {loading === true ? loadingState() : error ? errorState() : pageContent()}
     </div>
   );
 }

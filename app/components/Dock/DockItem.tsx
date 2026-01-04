@@ -5,7 +5,7 @@ interface DockItemProps {
   item: MenuItem;
 }
 
-function DockMenuItem({ item }: DockItemProps) {
+function DockItem({ item }: DockItemProps) {
   const { icon, label, isActive, url } = item;
   const baseClasses = "flex flex-col items-center justify-center w-16";
   const activeClass = isActive ? "dock-active" : "";
@@ -20,4 +20,4 @@ function DockMenuItem({ item }: DockItemProps) {
   );
 }
 
-export default DockMenuItem;
+export default DockItem;
