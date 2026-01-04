@@ -3,11 +3,11 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import React, { useState, ReactNode } from "react";
 
 interface ReactQueryProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 function ReactQueryProvider({ children }: ReactQueryProviderProps) {
-  const [queryClient] = useState<QueryClient>(
+  const [queryClient] = useState(
     new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
   );
 

@@ -1,5 +1,5 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["pokeapi", "Pokeball", "pokemons"]
+  "cSpell.words": ["partialize", "pokeapi", "Pokeball", "Pokedex", "pokemons"]
 }

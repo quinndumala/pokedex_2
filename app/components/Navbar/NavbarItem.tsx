@@ -8,7 +8,8 @@ interface NavbarItemProps {
 function NavbarItem({ item }: NavbarItemProps) {
   return (
     <>
-      <li className={item.isActive ? "active" : ""}>
+      {/* <li className={item.isActive ? "active" : ""}> */}
+      <li>
         <Link href={item.url}>{item.icon}</Link>
       </li>
     </>
