@@ -2,6 +2,7 @@ import { PokeAPI } from "pokeapi-types";
 import { PokemonDetails } from "../domain/pokemonDetails";
 import { PokemonDto } from "./pokemon.dto";
 import { mapPokemonDetails } from "./pokemonMapper";
+import { pickSingleFlavorTextEntry } from "./flavorTextHelper";
 
 type PokemonListItem = { name: string; url: string };
 
@@ -48,7 +49,12 @@ export async function getPokemonDetails(
 
   return mapPokemonDetails({
     ...pokemonData,
-    flavorText: speciesData.flavor_text_entries[0],
+    flavorText:
+      pickSingleFlavorTextEntry(
+        speciesData.flavor_text_entries,
+        "en",
+        "last"
+      ) ?? speciesData.flavor_text_entries[0],
     imageUrl: getPokemonImageUrl({ id: pokemonData.id }),
   });
 }
