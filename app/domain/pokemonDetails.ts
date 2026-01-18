@@ -10,7 +10,20 @@ export interface PokemonDetails {
   cry: string;
   stats: PokemonStats[];
   imageUrl?: string;
+  sprites?: PokemonSprite[];
   flavorText: PokeAPI.FlavorText;
+}
+
+export enum PokemonSpriteKind {
+  OFFICIAL_ARTWORK = "official-artwork",
+  DREAM_WORLD = "dream_world",
+  SHOWDOWN = "showdown",
+}
+
+export interface PokemonSprite {
+  kind: PokemonSpriteKind;
+  front_default: string | null;
+  front_shiny?: string | null;
 }
 
 interface PokemonType {
