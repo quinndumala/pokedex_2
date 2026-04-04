@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { capitalizeFirstLetter } from "@/app/util";
 import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
+import useGetPokemonTcgArtwork from "../../hooks/useGetPokemonTcgArtwork";
+import PokemonTcgCarousel from "../../components/PokemonTcgCarousel";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 
@@ -10,8 +12,10 @@ function DetailsPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
   const { data, loading, error } = useGetPokemonDetails(pokemon);
   const displayName = capitalizeFirstLetter(data?.name ?? "");
-
-  console.log("Pokemon Details Data:", data);
+  const tcgDexNumber =
+    loading === true || error !== null || !data ? null : data.id;
+  const { cards: tcgCards, loading: tcgLoading } =
+    useGetPokemonTcgArtwork(tcgDexNumber);
 
   const errorState = () => (
     <div className="mx-14 flex h-screen flex-col items-center justify-center">
@@ -44,12 +48,17 @@ function DetailsPage() {
         />
       </figure>
       <h1 className="mb-4 text-3xl font-bold">{displayName}</h1>
-      <p className="text-md">{data?.flavorText?.flavor_text}</p>
+      <p className="text-md max-w-lg text-center">{data?.flavorText?.flavor_text}</p>
+      <PokemonTcgCarousel
+        cards={tcgCards}
+        loading={tcgLoading}
+        pokemonName={displayName}
+      />
     </>
   );
 
   return (
-    <div className="mx-14 flex h-screen flex-col items-center justify-center">
+    <div className="mx-14 flex min-h-screen flex-col items-center justify-center py-16">
       {loading === true ? loadingState() : error ? errorState() : pageContent()}
     </div>
   );
