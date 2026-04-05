@@ -5,6 +5,8 @@ import { capitalizeFirstLetter } from "@/app/util";
 import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
 import useGetPokemonTcgArtwork from "../../hooks/useGetPokemonTcgArtwork";
 import PokemonTcgCarousel from "../../components/PokemonTcgCarousel";
+import PokemonStatsBars from "../../components/PokemonStatsBars";
+import PokemonTypeIcons from "../../components/PokemonTypeIcons";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 
@@ -28,12 +30,23 @@ function DetailsPage() {
       <figure>
         <Skeleton width={250} height={250} />
       </figure>
-      <h1 className="mb-4 mt-4 text-4xl font-bold">
+      <h1 className="mb-1 mt-4 text-4xl font-bold">
         <Skeleton width={200} />
       </h1>
+      <div className="mb-3 flex justify-center">
+        <Skeleton width={100} height={20} />
+      </div>
       <p className="text-lg">
         <Skeleton count={3} width={300} />
       </p>
+      <div className="mt-6 w-full max-w-lg space-y-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i}>
+            <Skeleton className="mb-1" width={120} />
+            <Skeleton height={12} />
+          </div>
+        ))}
+      </div>
     </>
   );
 
@@ -47,8 +60,16 @@ function DetailsPage() {
           height={250}
         />
       </figure>
-      <h1 className="mb-4 text-3xl font-bold">{displayName}</h1>
-      <p className="text-md max-w-lg text-center">{data?.flavorText?.flavor_text}</p>
+      <h1 className="mb-0 text-3xl font-bold">{displayName}</h1>
+      {data?.types?.length ? (
+        <div className="pt-2">
+          <PokemonTypeIcons types={data.types} />
+        </div>
+      ) : null}
+      <p className="text-md max-w-lg text-center">
+        {data?.flavorText?.flavor_text}
+      </p>
+      {data?.stats ? <PokemonStatsBars stats={data.stats} /> : null}
       <PokemonTcgCarousel
         cards={tcgCards}
         loading={tcgLoading}
