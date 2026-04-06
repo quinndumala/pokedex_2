@@ -2,6 +2,7 @@ import { PokeAPI } from "pokeapi-types";
 import { PokemonDetails } from "../domain/pokemonDetails";
 import { PokemonDto } from "./pokemon.dto";
 import { mapPokemonDetails } from "./pokemonMapper";
+import { buildAbilityShortEffectMap } from "./abilityShortEffect";
 import { pickSingleFlavorTextEntry } from "./flavorTextHelper";
 
 type PokemonListItem = { name: string; url: string };
@@ -47,8 +48,18 @@ export async function getPokemonDetails(
   const [pokemonData, speciesData]: [PokemonDto, PokeAPI.PokemonSpecies] =
     await Promise.all([pokemonRes.json(), speciesRes.json()]);
 
+  const shortEffectByUrl = await buildAbilityShortEffectMap(
+    pokemonData.abilities.map((a) => a.ability.url)
+  );
+
+  const abilities = pokemonData.abilities.map((a) => ({
+    ...a,
+    shortEffect: shortEffectByUrl.get(a.ability.url) ?? null,
+  }));
+
   return mapPokemonDetails({
     ...pokemonData,
+    abilities,
     flavorText:
       pickSingleFlavorTextEntry(
         speciesData.flavor_text_entries,

@@ -5,6 +5,7 @@ import { capitalizeFirstLetter } from "@/app/util";
 import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
 import useGetPokemonTcgArtwork from "../../hooks/useGetPokemonTcgArtwork";
 import PokemonTcgCarousel from "../../components/PokemonTcgCarousel";
+import PokemonAbilities from "../../components/PokemonAbilities";
 import PokemonStatsBars from "../../components/PokemonStatsBars";
 import PokemonTypeIcons from "../../components/PokemonTypeIcons";
 import { useParams } from "next/navigation";
@@ -69,7 +70,11 @@ function DetailsPage() {
       <p className="text-md max-w-lg text-center">
         {data?.flavorText?.flavor_text}
       </p>
+      {data?.abilities?.length ? (
+        <PokemonAbilities abilities={data.abilities} />
+      ) : null}
       {data?.stats ? <PokemonStatsBars stats={data.stats} /> : null}
+
       <PokemonTcgCarousel
         cards={tcgCards}
         loading={tcgLoading}

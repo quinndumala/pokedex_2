@@ -5,7 +5,11 @@ import {
 } from "../domain/pokemonDetails";
 import { PokemonDto } from "./pokemon.dto";
 
-export function mapPokemonDetails(pokemonData: PokemonDto): PokemonDetails {
+type PokemonDetailsDto = Omit<PokemonDto, "abilities"> & {
+  abilities: PokemonDetails["abilities"];
+};
+
+export function mapPokemonDetails(pokemonData: PokemonDetailsDto): PokemonDetails {
   return {
     id: pokemonData.id,
     name: pokemonData.name,

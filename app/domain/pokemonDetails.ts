@@ -34,13 +34,14 @@ interface PokemonType {
   };
 }
 
-interface PokemonAbility {
+export interface PokemonAbility {
   slot: number;
   is_hidden: boolean;
   ability: {
     name: string;
     url: string;
   };
+  shortEffect: string | null;
 }
 
 export interface PokemonCry {
