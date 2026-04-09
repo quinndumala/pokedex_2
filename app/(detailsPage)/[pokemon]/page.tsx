@@ -52,7 +52,7 @@ function DetailsPage() {
   );
 
   const pageContent = () => (
-    <>
+    <div className="mx-5 flex flex-col items-center">
       <figure>
         <Image
           src={data?.imageUrl ?? ""}
@@ -76,18 +76,27 @@ function DetailsPage() {
         <PokemonAbilities abilities={data.abilities} />
       ) : null}
       {data?.stats ? <PokemonStatsBars stats={data.stats} /> : null}
-
-      <PokemonTcgCarousel
-        cards={tcgCards}
-        loading={tcgLoading}
-        pokemonName={displayName}
-      />
-    </>
+    </div>
   );
 
   return (
-    <div className="mx-5 flex min-h-screen flex-col items-center justify-center py-8">
-      {loading === true ? loadingState() : error ? errorState() : pageContent()}
+    <div className="flex min-h-screen flex-col items-center justify-center py-8">
+      {loading === true ? (
+        <div className="mx-5 flex flex-col items-center">{loadingState()}</div>
+      ) : error ? (
+        errorState()
+      ) : (
+        <>
+          {pageContent()}
+          <div className="w-full">
+            <PokemonTcgCarousel
+              cards={tcgCards}
+              loading={tcgLoading}
+              pokemonName={displayName}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
