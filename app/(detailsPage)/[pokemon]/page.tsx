@@ -61,7 +61,9 @@ function DetailsPage() {
           height={250}
         />
       </figure>
-      <h1 className="mb-0 text-3xl font-bold">{displayName}</h1>
+      <div>
+        <h1 className="mb-0 text-3xl font-bold">{displayName}</h1>
+      </div>
       {data?.types?.length ? (
         <div className="pt-2">
           <PokemonTypeIcons types={data.types} />
@@ -84,7 +86,7 @@ function DetailsPage() {
   );
 
   return (
-    <div className="mx-14 flex min-h-screen flex-col items-center justify-center py-16">
+    <div className="mx-5 flex min-h-screen flex-col items-center justify-center py-8">
       {loading === true ? loadingState() : error ? errorState() : pageContent()}
     </div>
   );
