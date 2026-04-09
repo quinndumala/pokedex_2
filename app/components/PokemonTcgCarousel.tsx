@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import type { PokemonTcgCardArt } from "../domain/tcgCard";
 
@@ -17,6 +17,34 @@ function PokemonTcgCarousel({
   pokemonName,
 }: PokemonTcgCarouselProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const updateActiveSlide = useCallback(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const slides = Array.from(
+      scroller.querySelectorAll<HTMLElement>("[data-tcg-slide]"),
+    );
+    if (slides.length === 0) return;
+
+    const scrollerCenter = scroller.scrollLeft + scroller.clientWidth / 2;
+
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    slides.forEach((slide, idx) => {
+      const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+      const distance = Math.abs(scrollerCenter - slideCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = idx;
+      }
+    });
+
+    setActiveIndex(closestIndex);
+  }, []);
 
   const scrollBySlide = useCallback((direction: -1 | 1) => {
     const el = scrollerRef.current;
@@ -26,6 +54,10 @@ function PokemonTcgCarousel({
     const delta = slide ? slide.offsetWidth + gap : el.clientWidth;
     el.scrollBy({ left: direction * delta, behavior: "smooth" });
   }, []);
+
+  useEffect(() => {
+    updateActiveSlide();
+  }, [cards, updateActiveSlide]);
 
   if (loading) {
     return (
@@ -51,13 +83,18 @@ function PokemonTcgCarousel({
       <div className="relative flex flex-col gap-3">
         <div
           ref={scrollerRef}
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth [scrollbar-width:thin]"
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 scroll-smooth md:px-8 lg:px-12 [scrollbar-width:thin]"
+          onScroll={updateActiveSlide}
         >
           {cards.map((card, i) => (
             <article
               key={card.id}
               data-tcg-slide
-              className="flex w-full min-w-full shrink-0 snap-center items-center justify-center"
+              className={`flex w-[82%] min-w-[82%] shrink-0 snap-center items-center justify-center transition-all duration-300 md:w-[74%] md:min-w-[74%] lg:w-[66%] lg:min-w-[66%] ${
+                activeIndex === i
+                  ? "scale-100 opacity-100 blur-0"
+                  : "scale-[0.94] opacity-70 blur-[1px]"
+              }`}
             >
               <figure className="flex min-h-0 w-full items-center justify-center">
                 <Image
