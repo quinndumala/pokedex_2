@@ -10,6 +10,13 @@ import PokemonStatsBars from "../../components/PokemonStatsBars";
 import PokemonTypeIcons from "../../components/PokemonTypeIcons";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
+import { PokemonSpriteKind } from "../../domain/pokemonDetails";
+
+/** Wire to settings/UI later. */
+const SHOW_ANIMATED_POKEAPI_SPRITE = true;
+
+const HERO_STATIC_SIZE = 250;
+const HERO_ANIMATED_SPRITE_SIZE = 210;
 
 function DetailsPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
@@ -51,14 +58,32 @@ function DetailsPage() {
     </>
   );
 
+  const showdownGif =
+    data?.sprites?.find((s) => s.kind === PokemonSpriteKind.SHOWDOWN)
+      ?.front_default ?? null;
+  const useAnimatedSprite =
+    SHOW_ANIMATED_POKEAPI_SPRITE && showdownGif !== null;
+  const spriteImage = useAnimatedSprite ? showdownGif : data?.imageUrl ?? "";
+  const spriteSize = useAnimatedSprite
+    ? HERO_ANIMATED_SPRITE_SIZE
+    : HERO_STATIC_SIZE;
+
   const pageContent = () => (
     <div className="mx-5 flex flex-col items-center">
-      <figure>
+      <figure
+        className={
+          useAnimatedSprite
+            ? "flex h-[250px] w-[250px] shrink-0 items-center justify-center"
+            : undefined
+        }
+      >
         <Image
-          src={data?.imageUrl ?? ""}
+          src={spriteImage}
           alt={displayName}
-          width={250}
-          height={250}
+          width={spriteSize}
+          height={spriteSize}
+          className={useAnimatedSprite ? "object-contain" : undefined}
+          unoptimized={useAnimatedSprite}
         />
       </figure>
       <div>
