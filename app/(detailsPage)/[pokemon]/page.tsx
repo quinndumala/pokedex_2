@@ -16,7 +16,7 @@ import { PokemonSpriteKind } from "../../domain/pokemonDetails";
 const SHOW_ANIMATED_POKEAPI_SPRITE = true;
 
 const HERO_STATIC_SIZE = 250;
-const HERO_ANIMATED_SPRITE_SIZE = 210;
+const HERO_ANIMATED_SPRITE_SIZE = 200;
 
 function DetailsPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
