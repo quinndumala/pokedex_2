@@ -11,15 +11,16 @@ import PokemonTypeIcons from "../../components/PokemonTypeIcons";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import { PokemonSpriteKind } from "../../domain/pokemonDetails";
+import { usePokemonUiStore } from "../../stores/useUiStore";
 
-/** Wire to settings/UI later. */
-const SHOW_ANIMATED_POKEAPI_SPRITE = true;
-
-const HERO_STATIC_SIZE = 250;
-const HERO_ANIMATED_SPRITE_SIZE = 200;
+const STATIC_SPRITE_SIZE = 250;
+const ANIMATED_SPRITE_SIZE = 200;
 
 function DetailsPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
+  const showAnimatedPokeapiSprite = usePokemonUiStore(
+    (s) => s.showAnimatedPokeapiSprite
+  );
   const { data, loading, error } = useGetPokemonDetails(pokemon);
   const displayName = capitalizeFirstLetter(data?.name ?? "");
   const tcgDexNumber =
@@ -61,12 +62,11 @@ function DetailsPage() {
   const showdownGif =
     data?.sprites?.find((s) => s.kind === PokemonSpriteKind.SHOWDOWN)
       ?.front_default ?? null;
-  const useAnimatedSprite =
-    SHOW_ANIMATED_POKEAPI_SPRITE && showdownGif !== null;
+  const useAnimatedSprite = showAnimatedPokeapiSprite && showdownGif !== null;
   const spriteImage = useAnimatedSprite ? showdownGif : data?.imageUrl ?? "";
   const spriteSize = useAnimatedSprite
-    ? HERO_ANIMATED_SPRITE_SIZE
-    : HERO_STATIC_SIZE;
+    ? ANIMATED_SPRITE_SIZE
+    : STATIC_SPRITE_SIZE;
 
   const pageContent = () => (
     <div className="mx-5 flex flex-col items-center">
