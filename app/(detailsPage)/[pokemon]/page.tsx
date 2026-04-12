@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { capitalizeFirstLetter } from "@/app/util";
+import ScaledAnimatedSprite from "../../components/ScaledShowdownSprite";
 import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
 import useGetPokemonTcgArtwork from "../../hooks/useGetPokemonTcgArtwork";
 import PokemonTcgCarousel from "../../components/PokemonTcgCarousel";
@@ -13,7 +14,7 @@ import Skeleton from "react-loading-skeleton";
 import { usePokemonUiStore } from "../../stores/useUiStore";
 
 const STATIC_SPRITE_SIZE = 250;
-const ANIMATED_SPRITE_SIZE = 200;
+const ANIMATED_SPRITE_MAX = 200;
 
 function DetailsPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
@@ -61,9 +62,7 @@ function DetailsPage() {
   const gifSprite = data?.gifUrl ?? null;
   const useAnimatedSprite = showAnimatedPokeapiSprite && gifSprite !== null;
   const spriteImage = useAnimatedSprite ? gifSprite : data?.imageUrl ?? "";
-  const spriteSize = useAnimatedSprite
-    ? ANIMATED_SPRITE_SIZE
-    : STATIC_SPRITE_SIZE;
+  const spriteSize = STATIC_SPRITE_SIZE;
 
   const pageContent = () => (
     <div className="mx-5 flex flex-col items-center">
@@ -74,14 +73,21 @@ function DetailsPage() {
             : undefined
         }
       >
-        <Image
-          src={spriteImage}
-          alt={displayName}
-          width={spriteSize}
-          height={spriteSize}
-          className={useAnimatedSprite ? "object-contain" : undefined}
-          unoptimized={useAnimatedSprite}
-        />
+        {useAnimatedSprite ? (
+          <ScaledAnimatedSprite
+            src={spriteImage}
+            alt={displayName}
+            maxWidth={ANIMATED_SPRITE_MAX}
+            maxHeight={ANIMATED_SPRITE_MAX}
+          />
+        ) : (
+          <Image
+            src={spriteImage}
+            alt={displayName}
+            width={spriteSize}
+            height={spriteSize}
+          />
+        )}
       </figure>
       <div>
         <h1 className="mb-0 text-3xl font-bold">{displayName}</h1>

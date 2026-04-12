@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../util";
 import Link from "next/link";
 import { usePokemonUiStore } from "../stores/useUiStore";
+import ScaledAnimatedSprite from "./ScaledShowdownSprite";
 
 interface PokemonCardProps {
   name: string;
@@ -43,19 +44,26 @@ const PokemonCard = ({
                 : undefined
             }
           >
-            <Image
-              src={spriteSrc}
-              alt={displayName}
-              width={250}
-              height={250}
-              className={useAnimatedSprite ? "object-contain" : undefined}
-              unoptimized={useAnimatedSprite}
-              onError={() => {
-                if (gifUrl && spriteSrc === gifUrl) {
-                  setGifFailed(true);
-                }
-              }}
-            />
+            {useAnimatedSprite ? (
+              <ScaledAnimatedSprite
+                src={spriteSrc}
+                alt={displayName}
+                maxWidth={250}
+                maxHeight={250}
+                onError={() => {
+                  if (gifUrl) {
+                    setGifFailed(true);
+                  }
+                }}
+              />
+            ) : (
+              <Image
+                src={spriteSrc}
+                alt={displayName}
+                width={250}
+                height={250}
+              />
+            )}
           </figure>
           <h2 className="card-title">{displayName}</h2>
         </div>
