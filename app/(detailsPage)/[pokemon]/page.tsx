@@ -10,7 +10,6 @@ import PokemonStatsBars from "../../components/PokemonStatsBars";
 import PokemonTypeIcons from "../../components/PokemonTypeIcons";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
-import { PokemonSpriteKind } from "../../domain/pokemonDetails";
 import { usePokemonUiStore } from "../../stores/useUiStore";
 
 const STATIC_SPRITE_SIZE = 250;
@@ -59,11 +58,9 @@ function DetailsPage() {
     </>
   );
 
-  const showdownGif =
-    data?.sprites?.find((s) => s.kind === PokemonSpriteKind.SHOWDOWN)
-      ?.front_default ?? null;
-  const useAnimatedSprite = showAnimatedPokeapiSprite && showdownGif !== null;
-  const spriteImage = useAnimatedSprite ? showdownGif : data?.imageUrl ?? "";
+  const gifSprite = data?.gifUrl ?? null;
+  const useAnimatedSprite = showAnimatedPokeapiSprite && gifSprite !== null;
+  const spriteImage = useAnimatedSprite ? gifSprite : data?.imageUrl ?? "";
   const spriteSize = useAnimatedSprite
     ? ANIMATED_SPRITE_SIZE
     : STATIC_SPRITE_SIZE;

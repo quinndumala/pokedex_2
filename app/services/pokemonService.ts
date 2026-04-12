@@ -12,12 +12,19 @@ type ImageUrlInput = { id: number } | { offset: number; indexInPage: number };
 const POKEMON_IMAGE_BASE =
   "https://assets.pokemon.com/assets/cms2/img/pokedex/detail";
 
+const SHOWDOWN_SPRITE_BASE =
+  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown";
+
 function getPokemonImageUrl(input: ImageUrlInput) {
   const pokemonNumber =
     "id" in input ? input.id : input.offset + input.indexInPage + 1;
 
   const padded = String(pokemonNumber).padStart(3, "0");
   return `${POKEMON_IMAGE_BASE}/${padded}.png`;
+}
+
+function getShowdownGifUrlForNationalDexId(id: number): string {
+  return `${SHOWDOWN_SPRITE_BASE}/${id}.gif`;
 }
 export async function getPokemonData({ pageParam }: { pageParam: number }) {
   const limit = 21;
@@ -29,10 +36,14 @@ export async function getPokemonData({ pageParam }: { pageParam: number }) {
 
   const data: { results: PokemonListItem[] } = await res.json();
 
-  return data.results.map((pokemon, indexInPage) => ({
-    ...pokemon,
-    imageUrl: getPokemonImageUrl({ offset: pageParam, indexInPage }),
-  }));
+  return data.results.map((pokemon, indexInPage) => {
+    const id = pageParam + indexInPage + 1;
+    return {
+      ...pokemon,
+      imageUrl: getPokemonImageUrl({ offset: pageParam, indexInPage }),
+      gifUrl: getShowdownGifUrlForNationalDexId(id),
+    };
+  });
 }
 
 export async function getPokemonDetails(

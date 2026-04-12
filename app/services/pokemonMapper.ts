@@ -9,7 +9,12 @@ type PokemonDetailsDto = Omit<PokemonDto, "abilities"> & {
   abilities: PokemonDetails["abilities"];
 };
 
-export function mapPokemonDetails(pokemonData: PokemonDetailsDto): PokemonDetails {
+export function mapPokemonDetails(
+  pokemonData: PokemonDetailsDto
+): PokemonDetails {
+  const sprites = mapPokemonSprites(pokemonData);
+  const showdown = sprites.find((s) => s.kind === PokemonSpriteKind.SHOWDOWN);
+
   return {
     id: pokemonData.id,
     name: pokemonData.name,
@@ -20,7 +25,8 @@ export function mapPokemonDetails(pokemonData: PokemonDetailsDto): PokemonDetail
     cry: pokemonData.cries.latest,
     stats: pokemonData.stats,
     imageUrl: pokemonData.imageUrl,
-    sprites: mapPokemonSprites(pokemonData),
+    gifUrl: showdown?.front_default ?? null,
+    sprites,
     flavorText: pokemonData.flavorText,
   };
 }

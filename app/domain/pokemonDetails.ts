@@ -10,6 +10,7 @@ export interface PokemonDetails {
   cry: string;
   stats: PokemonStats[];
   imageUrl?: string;
+  gifUrl: string | null;
   sprites?: PokemonSprite[];
   flavorText: PokeAPI.FlavorText;
 }
