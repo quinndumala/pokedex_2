@@ -1,26 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import { capitalizeFirstLetter } from "@/app/util";
-import ScaledAnimatedSprite from "../../components/ScaledShowdownSprite";
 import useGetPokemonDetails from "../../hooks/useGetPokemonDetails";
 import useGetPokemonTcgArtwork from "../../hooks/useGetPokemonTcgArtwork";
 import PokemonTcgCarousel from "../../components/PokemonTcgCarousel";
 import PokemonAbilities from "../../components/PokemonAbilities";
 import PokemonStatsBars from "../../components/PokemonStatsBars";
 import PokemonTypeIcons from "../../components/PokemonTypeIcons";
+import PokemonSprite from "../../components/PokemonSprite";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
-import { usePokemonUiStore } from "../../stores/useUiStore";
 
 const STATIC_SPRITE_SIZE = 250;
 const ANIMATED_SPRITE_MAX = 200;
 
 function DetailsPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
-  const showAnimatedPokeapiSprite = usePokemonUiStore(
-    (s) => s.showAnimatedPokeapiSprite
-  );
   const { data, loading, error } = useGetPokemonDetails(pokemon);
   const displayName = capitalizeFirstLetter(data?.name ?? "");
   const tcgDexNumber =
@@ -59,36 +54,16 @@ function DetailsPage() {
     </>
   );
 
-  const gifSprite = data?.gifUrl ?? null;
-  const useAnimatedSprite = showAnimatedPokeapiSprite && gifSprite !== null;
-  const spriteImage = useAnimatedSprite ? gifSprite : data?.imageUrl ?? "";
-  const spriteSize = STATIC_SPRITE_SIZE;
-
   const pageContent = () => (
     <div className="mx-5 flex flex-col items-center">
-      <figure
-        className={
-          useAnimatedSprite
-            ? "flex h-[250px] w-[250px] shrink-0 items-center justify-center"
-            : undefined
-        }
-      >
-        {useAnimatedSprite ? (
-          <ScaledAnimatedSprite
-            src={spriteImage}
-            alt={displayName}
-            maxWidth={ANIMATED_SPRITE_MAX}
-            maxHeight={ANIMATED_SPRITE_MAX}
-          />
-        ) : (
-          <Image
-            src={spriteImage}
-            alt={displayName}
-            width={spriteSize}
-            height={spriteSize}
-          />
-        )}
-      </figure>
+      <PokemonSprite
+        imageUrl={data?.imageUrl ?? ""}
+        gifUrl={data?.gifUrl ?? null}
+        alt={displayName}
+        staticSize={STATIC_SPRITE_SIZE}
+        animatedMaxWidth={ANIMATED_SPRITE_MAX}
+        animatedMaxHeight={ANIMATED_SPRITE_MAX}
+      />
       <div>
         <h1 className="mb-0 text-3xl font-bold">{displayName}</h1>
       </div>
